@@ -3,6 +3,7 @@ from database import db
 from config import Config
 import models
 from datetime import datetime
+from sqlalchemy import and_
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -30,13 +31,14 @@ def training_hours_lookup():
         facility_id = request.form.get('facility_id') or ''
     else:
         facility_id = request.args.get('facility_id') or ''
-    all_found = models.SalesforceAccount.query.filter(models.SalesforceAccount.facility_id == facility_id).all()
-    if len(all_found) > 1:
+    results = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
+                                                         models.SalesforceAccount.facility_id == facility_id)).all()
+    if len(results) > 1:
         template =  'training_hours/training_hours_error.html'
-    elif not all_found:
+    elif not results:
         template = 'training_hours/training_hours_none.html'
     else:
-        training_hours_completed = all_found[0].hei_2019_training_hours_completed or training_hours_completed
+        training_hours_completed = results[0].hei_2019_training_hours_completed or training_hours_completed
         template = 'training_hours/training_hours_completed.html'
     return render_template(template,
                            current_date=current_date,
@@ -60,8 +62,10 @@ def facility_id_lookup():
     if org_name != '':
         org_name = '%' + org_name + '%'
     current_date = datetime.now().strftime('%B %d, %Y')
-    results = models.SalesforceAccount.query.filter(models.SalesforceAccount.facility_id is not None).filter(models.SalesforceAccount.facility_id != '')
-    results = results.filter(models.SalesforceAccount.name.ilike(org_name.lower()))
+    results = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
+                                                         models.SalesforceAccount.facility_id is not None,
+                                                         models.SalesforceAccount.facility_id != '',
+                                                         models.SalesforceAccount.name.ilike(org_name.lower())))
     if org_state == '':
         results = results.all()
     else:
@@ -70,4 +74,4 @@ def facility_id_lookup():
     return render_template('facility_id/facility_id.html', results=results, current_date=current_date, token_parameter=token_parameter)
 
 if __name__ == '__main__':
-    app.run(port=3838)
+    app.run(port=3838, threaded=True)

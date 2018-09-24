@@ -50,3 +50,4 @@ class SalesforceAccount(db.Model):
     facility_id = db.Column('facility_id__c', db.Integer)
     hei_2019_training_hours_completed = db.Column('hei_2019_training_hours_completed__c', db.Integer)
     state = db.Column('billingstate', db.String)
+    record_type = db.Column('record_type_name__c', db.String)
