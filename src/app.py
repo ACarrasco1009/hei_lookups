@@ -20,7 +20,10 @@ def home():
 @app.route("/training_hours", methods=['GET', 'POST'])
 def training_hours_lookup():
     raw_token = request.args.get('civis_service_token') or request.cookies.get('civis_service_token')
-    token_parameter = f'?civis_service_token={raw_token}'
+    if len(request.args) == 1 and 'civis_service_token' in request.args:
+        token_parameter = f'?civis_service_token={raw_token}'
+    else:
+        token_parameter = f'?{request.query_string.decode()}&civis_service_token={raw_token}'
     training_hours_completed = 0
     current_date = datetime.now().strftime('%B %d, %Y')
     if request.method == 'POST':
@@ -44,7 +47,10 @@ def training_hours_lookup():
 @app.route("/facility_id", methods=['GET', 'POST'])
 def facility_id_lookup():
     raw_token = request.args.get('civis_service_token') or request.cookies.get('civis_service_token')
-    token_parameter = f'?civis_service_token={raw_token}'
+    if len(request.args) == 1 and 'civis_service_token' in request.args:
+        token_parameter = f'?civis_service_token={raw_token}'
+    else:
+        token_parameter = f'?{request.query_string.decode()}&civis_service_token={raw_token}'
     if request.method == 'POST':
         org_name = request.form.get('org_name') or ''
         org_state = request.form.get('org_state') or ''
