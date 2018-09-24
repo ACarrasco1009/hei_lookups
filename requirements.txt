@@ -1,0 +1,4 @@
+civis==1.7.2
+flask==1.0.2
+flask-sqlalchemy==2.3.2
+sqlalchemy-redshift==0.7.1

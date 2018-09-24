@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title> HEI - 2019 Lookup Error </title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="StyleSheet" href="/css/fonts.css" type="text/css">
+		<link rel="StyleSheet" href="/css/style.css" type="text/css">
+	</head>
+	<body>		
+		<div class="container">     
+			<form action="{{ url_for('training_hours_lookup') }}" method="post">
+			<label for:"training_hours_lookup_btn"> Facility ID: </label> <input type="text" name="facility_id"> </input>
+			<input class="btn btn-default" type="submit" value="Training Hours Lookup" name="training_hours_lookup_btn">				
+			</form>
+		</div>
+		<p class="pgsubtitle"><b>HEI - 2019 Training Hours Completed: </b></p>
+		<p><font face="verdana" size="2" color="red"><b>There was an error retrieving your information, please contact HRC</b></font></p>
+		<p>Updated {{ current_date }}.</p>
+		<p>Training hours include the CAL, National LGBT Health Education Center and other approved HEI training credit hours through December 13, 2017.</p>	
+		<div class="container">     
+			<form action="{{ url_for('home') }}" method="post">
+			<input class="btn btn-default" type="submit" value="Return to Home Page" name="return_home">		
+			</form>
+		</div>		
+	</body>
+</html>
