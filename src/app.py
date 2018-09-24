@@ -33,11 +33,13 @@ def training_hours_lookup():
 @app.route("/facility_id", methods=['GET', 'POST'])
 def facility_id_lookup():
     if request.method == 'POST':
-        org_name = '%' + request.form.get('org_name') + '%'or ''
-        org_state = request.form.get('org_state')
+        org_name = request.form.get('org_name') or ''
+        org_state = request.form.get('org_state') or ''
     else:
-        org_name = '%' + request.args.get('org_name') + '%' or ''
-        org_state = request.args.get('org_state')
+        org_name = request.args.get('org_name') or ''
+        org_state = request.args.get('org_state') or ''
+    if org_name != '':
+        org_name = '%' + org_name + '%'
     current_date = datetime.now().strftime('%B %d, %Y')
     results = models.SalesforceAccount.query.filter(models.SalesforceAccount.facility_id is not None).filter(models.SalesforceAccount.facility_id != '')
     results = results.filter(models.SalesforceAccount.name.ilike(org_name.lower()))
