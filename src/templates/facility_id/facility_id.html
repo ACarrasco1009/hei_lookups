@@ -9,7 +9,7 @@
 
 <body>
 <h4> Perform Another Search: </h4>
-<form action="{{ url_for('facility_id_lookup') }}" method="post">	
+<form action="{{ url_for('facility_id_lookup') + token_parameter}}" method="post">	
 	<label for:"facility_id_lookup_btn"> Organization Name: </label> <input type="text" name="org_name"> </input>
 		<select name="org_state" class="dropdown" selected="">
 			<option value="">--Select State--</option>					
@@ -94,4 +94,9 @@
 	{% endfor %}
 </table>
 <p>Updated {{ current_date }}.</p>
+<div class="container">     
+			<form action="{{ url_for('home') + token_parameter }}" method="post">
+			<input class="btn btn-default" type="submit" value="Return to Home Page" name="return_home">		
+			</form>
+		</div>		
 </body>

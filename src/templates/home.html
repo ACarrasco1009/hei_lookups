@@ -6,11 +6,11 @@
   </head>
   <body>
     <div class="container">     
-		<form action="{{ url_for('training_hours_lookup') }}" method="post">
+		<form action="{{ url_for('training_hours_lookup') + token_parameter }}" method="post">
 			<label for:"training_hours_lookup_btn"> Facility ID: </label> <input type="text" name="facility_id"> </input>
 			<input class="btn btn-default" type="submit" value="Training Hours Lookup" name="training_hours_lookup_btn">				
-		</form>	  
-		<form action="{{ url_for('facility_id_lookup') }}" method="post">	
+		</form>	  		
+		<form action="{{ url_for('facility_id_lookup') + token_parameter }}" method="post">	
 			<label for:"facility_id_lookup_btn"> Organization Name: </label> <input type="text" name="org_name"> </input>
 			<select name="org_state" class="dropdown" selected="">
 				<option value="">--Select State--</option>					
