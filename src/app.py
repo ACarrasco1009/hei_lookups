@@ -3,7 +3,6 @@ from database import db
 from config import Config
 import models
 from datetime import datetime
-import pandas as pd
 
 app = Flask(__name__)
 app.config.from_object(Config)
