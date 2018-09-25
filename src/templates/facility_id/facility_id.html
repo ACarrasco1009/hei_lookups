@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h4> Perform Another Search: </h4>
+<h4> Enter your Facility's Name to find your Facility ID: </h4>
 <form action="{{ url_for('facility_id_lookup') + token_parameter}}" method="post">	
 	<label for:"facility_id_lookup_btn"> Organization Name: </label> <input type="text" name="org_name"> </input>
 		<select name="org_state" class="dropdown" selected="">
@@ -77,6 +77,7 @@
 	<tr>
 		<td class="org_index_header" align="center"><b> # </b></td>
 		<td class="org_name_header" align="center"><b> Organization </b></td>
+		<td class="org_city_header" align="center"><b> City </b></td>
 		<td class="org_state_header" align="center"><b> State </b></td>
 		<td class="org_facility_id_header" align="center"><b> Facility ID </b></td>		
 	</tr>
@@ -88,15 +89,11 @@
 	{% endif %}				
 		<td class="org_index" align="center">{{loop.index}}</TD>
 		<td class="org_name">{{org[0]}}</TD>
-		<td class="org_state" align="center">{{org[1]}}</TD>
-		<td class="org_facility_id" align="center">{{org[2]}}</TD>
+		<td class="org_city" align="center">{{org[1]}}</TD>
+		<td class="org_state" align="center">{{org[2]}}</TD>
+		<td class="org_facility_id" align="center">{{org[3]}}</TD>
 	</tr>
 	{% endfor %}
 </table>
-<p>Updated {{ current_date }}.</p>
-<div class="container">     
-			<form action="{{ url_for('home') + token_parameter }}" method="post">
-			<input class="btn btn-default" type="submit" value="Return to Home Page" name="return_home">		
-			</form>
-		</div>		
+<p>Updated {{ current_date }}.</p>	
 </body>

@@ -50,4 +50,7 @@ class SalesforceAccount(db.Model):
     facility_id = db.Column('facility_id__c', db.Integer)
     hei_2019_training_hours_completed = db.Column('hei_2019_training_hours_completed__c', db.Integer)
     state = db.Column('billingstate', db.String)
+    city = db.Column('billingcity', db.String)
+    hei_survey_target = db.Column('hei_survey_target__c', db.String)
+    last_training_update = db.Column('HEI_Last_Training_Update__c', db.Date)
     record_type = db.Column('record_type_name__c', db.String)
