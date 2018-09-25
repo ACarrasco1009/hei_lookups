@@ -1,22 +1,20 @@
 <html>
 	<head>
-		<title> HEI - 2019 No Organization Found </title>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<link rel="StyleSheet" href="/css/fonts.css" type="text/css">
-		<link rel="StyleSheet" href="/css/style.css" type="text/css">
+		<center> <img src="../img/HEI_Banner_Logo-2017 -600.jpg" alt="HEI Banner" style="margin-bottom: 50px; margin-top: 20px;"> </center>
+		<title> HEI - 2019 No Facilities Found </title>
 	</head>
-	<body>
-		<div class="container">
-			<h4> Enter your Facility ID below to check your training hours: </h4>
+	<body style="background-color: #FCFDFF">
+		<div class="container" style="margin-left: 50px">
+			<h3> Enter your Facility ID below to check your training hours: </h3>
 			<form action="{{ url_for('training_hours_lookup') + token_parameter }}" method="post">
-			<label for:"training_hours_lookup_btn"> Facility ID: </label> <input type="text" name="facility_id"> </input>
-			<input class="btn btn-default" type="submit" value="Training Hours Lookup" name="training_hours_lookup_btn">				
+				<label for:"training_hours_lookup_btn"> Facility ID: </label> <input type="text" name="facility_id"> </input>
+				<input class="btn btn-default" type="submit" value="Training Hours Lookup" name="training_hours_lookup_btn">				
 			</form>
+			<h3 style="margin-top: 70px">Facility Name: {{ account_name }} </h3>
+			<h4 align="left">HEI - 2019 Training Hours Completed: </h4>
+			<p><font face="verdana" size="2" color="red">No facilities found with Facility ID: {{ facility_id }}.</font></p>
+			<p>Updated {{ current_date }}.</p>
+			<p>Training hours include the CAL, National LGBT Health Education Center and other approved HEI training credit hours through {{ last_training_update }}.</p>	
 		</div>
-		<h3 style="margin-top: 70px">Account Name: {{ account_name }} </h3>
-		<h4 align="left">HEI - 2019 Training Hours Completed: </h4>
-		<p><font face="verdana" size="2" color="red">No organization found with facility_id: {{ facility_id }}.</font></p>
-		<p>Updated {{ current_date }}.</p>
-		<p>Training hours include the CAL, National LGBT Health Education Center and other approved HEI training credit hours through {{ last_training_update }}.</p>	
 	</body>
 </html>
