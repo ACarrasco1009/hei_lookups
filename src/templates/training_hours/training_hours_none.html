@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<center> <img src="{{url_for('static', filename='images/HEI_Banner_Logo-2017 -600.jpg')}}" alt="HEI Banner" style="margin-bottom: 50px; margin-top: 20px;"> </center>
+		<center> <img src="{{url_for('static', filename='images/HEI_Banner_Logo-2017 -600.jpg') + token_parameter}}" alt="HEI Banner" style="margin-bottom: 50px; margin-top: 20px;"> </center>
 		<title> HEI - 2019 No Facilities Found </title>
 	</head>
 	<body style="background-color: #FCFDFF">
@@ -13,7 +13,6 @@
 			<h3 style="margin-top: 70px">Facility Name: {{ account_name }} </h3>
 			<h4 align="left">HEI - 2019 Training Hours Completed: </h4>
 			<p><font face="verdana" size="2" color="red">No facilities found with Facility ID: {{ facility_id }}.</font></p>
-			<p>Updated {{ current_date }}.</p>
 			<p>Training hours include the CAL, National LGBT Health Education Center and other approved HEI training credit hours through {{ last_training_update }}.</p>	
 		</div>
 	</body>

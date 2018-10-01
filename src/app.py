@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 from database import db
 from config import Config
 import models
-from datetime import datetime
 from sqlalchemy import and_
 
 app = Flask(__name__)
@@ -25,7 +24,6 @@ def training_hours_lookup():
         token_parameter = f'?{request.query_string.decode()}&civis_service_token={raw_token}'
     training_hours_completed = 0
     account_name = ''
-    current_date = datetime.now().strftime('%B %d, %Y')
     if request.method == 'POST':
         facility_id = request.form.get('facility_id') or ''
     else:
@@ -43,7 +41,6 @@ def training_hours_lookup():
         account_name = results[0].name or ''
         template = 'training_hours/training_hours_completed.html'
     return render_template(template,
-                           current_date=current_date,
                            facility_id=facility_id,
                            training_hours_completed=training_hours_completed,
                            token_parameter=token_parameter,
@@ -64,7 +61,6 @@ def facility_id_lookup():
         org_state = request.args.get('org_state') or ''
     if org_name != '':
         org_name = '%' + org_name + '%'
-    current_date = datetime.now().strftime('%B %d, %Y')
     results = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
                                                          models.SalesforceAccount.facility_id is not None,
                                                          models.SalesforceAccount.facility_id != '',
@@ -75,7 +71,7 @@ def facility_id_lookup():
     else:
         results = results.filter(models.SalesforceAccount.state == org_state).all()
     results = sorted([(org.name or '', org.city or '', org.state or '', org.facility_id or '') for org in results], key=lambda org: (org[0], org[1], org[2], org[3]))
-    return render_template('facility_id/facility_id.html', results=results, current_date=current_date, token_parameter=token_parameter)
+    return render_template('facility_id/facility_id.html', results=results, token_parameter=token_parameter)
 
 if __name__ == '__main__':
     app.run(port=3838, threaded=True)

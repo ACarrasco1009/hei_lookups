@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<center> <img src="{{url_for('static', filename='images/HEI_Banner_Logo-2017 -600.jpg')}}" alt="HEI Banner" style="margin-bottom: 50px; margin-top: 20px;"> </center>
+		<center> <img src="{{url_for('static', filename='images/HEI_Banner_Logo-2017 -600.jpg') + token_parameter}}" alt="HEI Banner" style="margin-bottom: 50px; margin-top: 20px;"> </center>
 		<title>Healthcare Equality Index - Facility ID Lookup</title>
 	</head>
 
@@ -93,6 +93,5 @@
 				</tr>
 				{% endfor %}
 			</table>
-			<p>Updated {{ current_date }}.</p>	
 		</div>
 	</body>
