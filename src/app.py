@@ -32,6 +32,11 @@ def training_hours_lookup():
                                                          models.SalesforceAccount.hei_survey_target != None,
                                                          models.SalesforceAccount.facility_id == facility_id
                                                          )).all()
+    last_training_update = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
+                                                                      models.SalesforceAccount.hei_survey_target != None,
+                                                                      models.SalesforceAccount.last_training_update != None,
+                                                                      )).first().last_training_update
+    last_training_update = last_training_update.strftime('%B %d, %Y')
     if len(results) > 1:
         template =  'training_hours/training_hours_error.html'
     elif not results:
@@ -44,7 +49,8 @@ def training_hours_lookup():
                            facility_id=facility_id,
                            training_hours_completed=training_hours_completed,
                            token_parameter=token_parameter,
-                           account_name=account_name)
+                           account_name=account_name,
+                           last_training_update=last_training_update)
 
 @app.route("/facility_id", methods=['GET', 'POST'])
 def facility_id_lookup():
