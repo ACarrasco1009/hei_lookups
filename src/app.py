@@ -3,6 +3,10 @@ from database import db
 from config import Config
 import models
 from sqlalchemy import and_
+import logging
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 app.config.from_object(Config)
