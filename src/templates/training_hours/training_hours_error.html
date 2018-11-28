@@ -11,7 +11,8 @@
 				<input class="btn btn-default" type="submit" value="Training Hours Lookup" name="training_hours_lookup_btn">				
 			</form>
 			<h3 style="margin-top: 70px">Facility Name: {{ account_name }} </h3>
-			<h4 align="left">HEI - 2019 Training Hours Completed: </h4>
+			<p align="left" style="margin-top: 25px"><b>Facility's specific training requirement: </b><font face="verdana" size="2" color="red">{{ training_hours_required }}.</font></p>
+			<p align="left" style="margin-top: 25px"><b>HEI - 2019 Training Hours Completed: </b><font face="verdana" size="2" color="red">{{ training_hours_completed }} hour(s) completed.</font></p>
 			<p><font face="verdana" size="2" color="red"><b>There was an error retrieving your information, please contact HRC</b></font></p>
 			<p></br>Training hours include the CAL, National LGBT Health Education Center and other approved HEI training credit hours through <b>{{ last_training_update }}</b>.</p>	
 			<p></br>Facilities that need to complete the “Executive Briefing Training Requirement” will see one of the two options below:</p>

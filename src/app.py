@@ -27,30 +27,36 @@ def training_hours_lookup():
     else:
         token_parameter = f'?{request.query_string.decode()}&civis_service_token={raw_token}'
     training_hours_completed = 0
+    training_hours_required = 0
     account_name = ''
+    last_training_update = ''
     if request.method == 'POST':
         facility_id = request.form.get('facility_id') or ''
     else:
         facility_id = request.args.get('facility_id') or ''
-    results = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
-                                                         models.SalesforceAccount.hei_survey_target != None,
-                                                         models.SalesforceAccount.facility_id == facility_id
-                                                         )).all()
-    try:
-        last_training_update = results[0].last_training_update.strftime('%B %d, %Y')
-    except:
-        last_training_update = ''
-    if len(results) > 1:
-        template =  'training_hours/training_hours_error.html'
-    elif not results:
-        template = 'training_hours/training_hours_none.html'
+    if facility_id == '':
+        template = 'training_hours/training_hours_blank.html'
     else:
-        training_hours_completed = results[0].hei_2019_training_hours_completed or training_hours_completed
-        account_name = results[0].name or ''
-        last_training_update = results[0].last_training_update.strftime('%B %d, %Y')
-        template = 'training_hours/training_hours_completed.html'
+        results = models.SalesforceAccount.query.filter(and_(models.SalesforceAccount.record_type == 'HEI',
+                                                             models.SalesforceAccount.hei_survey_target != None,
+                                                             models.SalesforceAccount.facility_id == facility_id
+                                                             )).all()
+        if len(results) > 1:
+            template =  'training_hours/training_hours_error.html'
+        elif not results:
+            template = 'training_hours/training_hours_none.html'
+        else:
+            training_hours_completed = results[0].hei_2019_training_hours_completed or training_hours_completed
+            training_hours_required = results[0].hei_2019_training_requirement or training_hours_required
+            account_name = results[0].name or ''
+            template = 'training_hours/training_hours_completed.html'
+            try:
+                last_training_update = results[0].last_training_update.strftime('%B %d, %Y')
+            except AttributeError:
+                pass
     return render_template(template,
                            facility_id=facility_id,
+                           training_hours_required=training_hours_required,
                            training_hours_completed=training_hours_completed,
                            token_parameter=token_parameter,
                            account_name=account_name,
@@ -85,3 +91,4 @@ def facility_id_lookup():
 
 if __name__ == '__main__':
     app.run(port=3838, threaded=True)
+
